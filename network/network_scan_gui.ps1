@@ -57,12 +57,12 @@ $buttonSave.Location = New-Object System.Drawing.Point(10,420)
 $buttonSave.Size = New-Object System.Drawing.Size(120,30)
 $form.Controls.Add($buttonSave)
 
-# Funkcja do generowania zakresu IP
+# Funkcja do generowania zakresu IP (w obrębie jednej podsieci)
 function Get-IpRange($start,$end) {
     $startBytes = [System.Net.IPAddress]::Parse($start).GetAddressBytes()
     $endBytes = [System.Net.IPAddress]::Parse($end).GetAddressBytes()
     $ipList = @()
-    for ($i=$startBytes[3]; $i -le $endBytes[3]; $i++) {
+    for ($i = $startBytes[3]; $i -le $endBytes[3]; $i++) {
         $ip = "$($startBytes[0]).$($startBytes[1]).$($startBytes[2]).$i"
         $ipList += $ip
     }
@@ -94,7 +94,7 @@ $buttonSave.Add_Click({
         $csv = ""
         foreach ($row in $dataGrid.Rows) {
             if ($row.IsNewRow -eq $false) {
-                $csv += "$($row.Cells[0].Value);$($row.Cells[1].Value);$($row.Cells[2].Value)`n"
+                $csv += "$($row.Cells[0].Value);$($row.Cells[1].Value);$($row.Cells[2].Value)`r`n"
             }
         }
         Set-Content $saveDialog.FileName $csv -Encoding UTF8
