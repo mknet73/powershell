@@ -58,7 +58,7 @@ $buttonSave.Size = New-Object System.Drawing.Size(120,30)
 $form.Controls.Add($buttonSave)
 
 # Function to generate IP range (within the same subnet)
-function Get-IpRange($start,$end) {
+function Get-IpRange($start, $end) {
     $startBytes = [System.Net.IPAddress]::Parse($start).GetAddressBytes()
     $endBytes = [System.Net.IPAddress]::Parse($end).GetAddressBytes()
     $ipList = @()
